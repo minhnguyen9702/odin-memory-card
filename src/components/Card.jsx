@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import PropTypes from 'prop-types';
 
-function Card() {
+
+function Card({ query }) {
   const [albumImage, setAlbumImage] = useState("");
 
   useEffect(() => {
     async function getAlbumImageURL() {
-      const query = "Nevermind Nirvana";
       const token = "lsPaKjHxamCQZkmaEpuCrTlScjhJGlbOgHteVoLb";
       const url = `https://api.discogs.com/database/search?q=${encodeURIComponent(
         query
@@ -17,18 +18,24 @@ function Card() {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        setAlbumImage(data.results[0].cover_image);
+        setAlbumImage(data.results[0]?.cover_image);
       } catch (error) {
         console.error("Fetch error:", error);
       }
     }
-    getAlbumImageURL();
-  }, []);
+    if (query) {
+      getAlbumImageURL(query);
+    }
+  }, [query]);
   return (
     <div>
       {albumImage && <img src={albumImage} alt="Nevermind album cover" />}
     </div>
   );
+}
+
+Card.propTypes = {
+  query: PropTypes.string
 }
 
 export default Card;

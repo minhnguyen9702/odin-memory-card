@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Scoreboard score={score} highScore={highScore} />
-      <Card/>
+      <Card query="Ants from Up There, Black Country New Road"/>
     </>
   );
 }
