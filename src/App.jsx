@@ -56,7 +56,7 @@ function App() {
   };
 
   return (
-    <div className="mt-4">
+    <div className="bg-zinc-900 p-4">
       <div className="mx-auto text-gray-100">
         <h1 className="text-3xl text-center font-bold">Album Cover Memory Game</h1>
         <p className="text-center">
