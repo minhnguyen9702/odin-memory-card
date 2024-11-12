@@ -1,6 +1,6 @@
 function Scoreboard({ currentScore, highScore }) {
   return (
-    <div>
+    <div className="text-center text-xl">
       <h2>Current Score: {currentScore}</h2>
       <h2>High Score: {highScore}</h2>
     </div>

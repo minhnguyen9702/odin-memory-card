@@ -6,6 +6,11 @@ function Card({ query, onClick }) {
 
   useEffect(() => {
     async function getAlbumImageURL() {
+      const cachedImage = localStorage.getItem(`album-cover-${query}`);
+      if (cachedImage) {
+        setAlbumImage(cachedImage)
+        return
+      }
       const token = "lsPaKjHxamCQZkmaEpuCrTlScjhJGlbOgHteVoLb";
       const url = `https://api.discogs.com/database/search?q=${encodeURIComponent(
         query
@@ -17,7 +22,9 @@ function Card({ query, onClick }) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        setAlbumImage(data.results[0]?.cover_image);
+        const coverImage = data.results[0]?.cover_image
+        localStorage.setItem(`album-cover-${query}`, coverImage)
+        setAlbumImage(coverImage);
       } catch (error) {
         console.error("Fetch error:", error);
       }
@@ -27,8 +34,14 @@ function Card({ query, onClick }) {
     }
   }, [query]);
   return (
-    <div onClick={onClick}>
-      {albumImage && <img src={albumImage} alt="Nevermind album cover" />}
+    <div onClick={onClick} className="aspect-w-1 aspect-h-1 max-w-96 p-3">
+      {albumImage && (
+        <img
+          src={albumImage}
+          alt={`${query} album cover`}
+          className="object-cover w-full h-full"
+        />
+      )}
     </div>
   );
 }

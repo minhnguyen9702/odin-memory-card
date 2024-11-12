@@ -27,11 +27,15 @@ function App() {
     const shuffledAlbumCovers = [...albumCovers].sort(
       () => Math.random() - 0.5
     );
-    setAlbumCovers(shuffledAlbumCovers)
+    setAlbumCovers(shuffledAlbumCovers);
   };
 
-  const addAlbum = (album) => {
+  useEffect(() => {
     shuffleAlbumCovers()
+  }, [])
+
+  const addAlbum = (album) => {
+    shuffleAlbumCovers();
     setSelectedAlbums((prevAlbums) => {
       const newAlbums = new Map(prevAlbums);
       if (newAlbums.has(album)) {
@@ -53,9 +57,14 @@ function App() {
 
   return (
     <div>
-      <h1>Album Cover Memory Game</h1>
-      <p>Get points by clicking on an image but don&apos;t click on any more than once!</p>
-      <Scoreboard currentScore={currentScore} highScore={highScore} />
+      <div className="mx-auto">
+        <h1 className="text-3xl text-center">Album Cover Memory Game</h1>
+        <p className="text-center">
+          Get points by clicking on an image but don&apos;t click on any more
+          than once!
+        </p>
+        <Scoreboard currentScore={currentScore} highScore={highScore} />
+      </div>
       <div className="flex flex-wrap">
         {albumCovers.map((album) => (
           <Card key={album} query={album} onClick={() => addAlbum(album)} />
