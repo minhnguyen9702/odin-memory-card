@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-
-function Card({ query }) {
+function Card({ query, onClick }) {
   const [albumImage, setAlbumImage] = useState("");
 
   useEffect(() => {
@@ -28,14 +27,15 @@ function Card({ query }) {
     }
   }, [query]);
   return (
-    <div>
+    <div onClick={onClick}>
       {albumImage && <img src={albumImage} alt="Nevermind album cover" />}
     </div>
   );
 }
 
 Card.propTypes = {
-  query: PropTypes.string
-}
+  query: PropTypes.string,
+  onClick: PropTypes.func,
+};
 
 export default Card;
