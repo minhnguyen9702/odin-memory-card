@@ -56,16 +56,16 @@ function App() {
   };
 
   return (
-    <div>
-      <div className="mx-auto">
-        <h1 className="text-3xl text-center">Album Cover Memory Game</h1>
+    <div className="mt-4">
+      <div className="mx-auto text-gray-100">
+        <h1 className="text-3xl text-center font-bold">Album Cover Memory Game</h1>
         <p className="text-center">
           Get points by clicking on an image but don&apos;t click on any more
           than once!
         </p>
         <Scoreboard currentScore={currentScore} highScore={highScore} />
       </div>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
         {albumCovers.map((album) => (
           <Card key={album} query={album} onClick={() => addAlbum(album)} />
         ))}

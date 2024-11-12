@@ -34,7 +34,7 @@ function Card({ query, onClick }) {
     }
   }, [query]);
   return (
-    <div onClick={onClick} className="aspect-w-1 aspect-h-1 max-w-96 p-3">
+    <div onClick={onClick} className="aspect-w-1 aspect-h-1 max-w-64 md:max-w-96 p-4 hover:scale-105 transform transition duration-300">
       {albumImage && (
         <img
           src={albumImage}
