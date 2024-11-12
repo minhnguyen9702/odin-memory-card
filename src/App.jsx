@@ -8,14 +8,30 @@ function App() {
   const [highScore, setHighScore] = useState(0);
   const [selectedAlbums, setSelectedAlbums] = useState(new Map());
 
-  const albumCovers = [
+  const [albumCovers, setAlbumCovers] = useState([
     "Ants from Up There, Black Country New Road",
     "For the first time, Black Country New Road",
     "Schlagenheim, Black Midi",
     "Hellfire, Black Midi",
-  ];
+    "If You're Feeling Sinister, Belle and Sebastian",
+    "Album. Girls",
+    "In the Aeroplane Over the Sea, Neutral Milk Hotel",
+    "In Rainbows, Radiohead",
+    "By the Time I Get to Phoenix, Injury Reserve",
+    "The Glow Pt. 2, The Microphones",
+    "Illinois, Sufjan Stevens",
+    "Slanted and Enchanted, Pavement",
+  ]);
+
+  const shuffleAlbumCovers = () => {
+    const shuffledAlbumCovers = [...albumCovers].sort(
+      () => Math.random() - 0.5
+    );
+    setAlbumCovers(shuffledAlbumCovers)
+  };
 
   const addAlbum = (album) => {
+    shuffleAlbumCovers()
     setSelectedAlbums((prevAlbums) => {
       const newAlbums = new Map(prevAlbums);
       if (newAlbums.has(album)) {
@@ -26,9 +42,9 @@ function App() {
         setCurrentScore((prevScore) => {
           const newScore = prevScore + 1;
           if (newScore > highScore) {
-            setHighScore(newScore)
+            setHighScore(newScore);
           }
-          return newScore
+          return newScore;
         });
         return newAlbums;
       }
@@ -38,10 +54,13 @@ function App() {
   return (
     <div>
       <h1>Album Cover Memory Game</h1>
+      <p>Get points by clicking on an image but don&apos;t click on any more than once!</p>
       <Scoreboard currentScore={currentScore} highScore={highScore} />
-      {albumCovers.map((album) => (
-        <Card key={album} query={album} onClick={() => addAlbum(album)} />
-      ))}
+      <div className="flex flex-wrap">
+        {albumCovers.map((album) => (
+          <Card key={album} query={album} onClick={() => addAlbum(album)} />
+        ))}
+      </div>
     </div>
   );
 }
